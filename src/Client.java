@@ -86,6 +86,9 @@ public class Client {
                     case 6:
                         message = "You lost by forfeit!";
                         break;
+                    case 7:
+                        message = "You lost by forfeit!";
+                        break;
                 }
 
                 // End of game, display result and exit

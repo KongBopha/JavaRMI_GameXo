@@ -36,59 +36,29 @@ public class Match {
     }
 
     public Player getWinner() {
+        // Check rows
+        if ((board[0][0] == board[0][1] && board[0][1] == board[0][2] && board[0][0] != ' '))
+            return board[0][0] == PLAYER1_MARKER ? player1 : player2;
+        if ((board[1][0] == board[1][1] && board[1][1] == board[1][2] && board[1][0] != ' '))
+            return board[1][0] == PLAYER1_MARKER ? player1 : player2;
+        if ((board[2][0] == board[2][1] && board[2][1] == board[2][2] && board[2][0] != ' '))
+            return board[2][0] == PLAYER1_MARKER ? player1 : player2;
 
-        int win_player1 = 0;
-        int win_player2 = 0;
+        // Check columns
+        if ((board[0][0] == board[1][0] && board[1][0] == board[2][0] && board[0][0] != ' '))
+            return board[0][0] == PLAYER1_MARKER ? player1 : player2;
+        if ((board[0][1] == board[1][1] && board[1][1] == board[2][1] && board[0][1] != ' '))
+            return board[0][1] == PLAYER1_MARKER ? player1 : player2;
+        if ((board[0][2] == board[1][2] && board[1][2] == board[2][2] && board[0][2] != ' '))
+            return board[0][2] == PLAYER1_MARKER ? player1 : player2;
 
-        int row = 0;
-        int column = 0;
-        int straight_win = 0;
-        int cross_win = 0;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (cross_win == 0) {
-                    row = j;
-                    column = j;
-                } else if (cross_win == 1) {
-                    row = j;
-                    column = j == 0 ? 2 : j == 2 ? 0 : j;
-                } else if (straight_win == 0) {
-                    row = i;
-                    column = j;
-                } else if (straight_win == 1) {
-                    row = j;
-                    column = i;
-                }
-                if (board[row][column] == PLAYER1_MARKER) {
-                    win_player1++;
-                } else if (board[i][j] == PLAYER2_MARKER) {
-                    win_player2++;
-                }
+        // Check diagonals
+        if ((board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[0][0] != ' '))
+            return board[0][0] == PLAYER1_MARKER ? player1 : player2;
+        if ((board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[0][2] != ' '))
+            return board[0][2] == PLAYER1_MARKER ? player1 : player2;
 
-                if (win_player1 == 3) {
-                    System.out.println(win_player1);
-                    return player1;
-                } else if (win_player2 == 3) {
-                    System.out.println(win_player1);
-                    return player2;
-                }
-
-                if (cross_win == 0 && j == 2) {
-                    cross_win = 1;
-                    j = -1;
-                }
-            }
-
-            win_player1 = 0;
-            win_player2 = 0;
-
-            if (straight_win == 0 && i == 2) {
-                straight_win = 1;
-                i = -1;
-            }
-        }
-
-        return null;
+        return null; // No winner
     }
 
     public boolean isReady() {
